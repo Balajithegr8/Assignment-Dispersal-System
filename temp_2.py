@@ -28,8 +28,8 @@ print("Mean Squared Error:", mse)
 # Use the trained model to predict the due date for a new sample
 new_sample = pd.DataFrame({
     'Difficulty': [2],
-    'Workload': [0],
-    'Assigned date': [9]
+    'Workload': [1],
+    'Assigned date': [2]
 })
 new_prediction = model.predict(new_sample)
 print("Predicted due date:", new_prediction)
