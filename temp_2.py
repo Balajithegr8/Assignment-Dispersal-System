@@ -3,6 +3,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import LabelEncoder
+import pickle
 
 # Load the csv file into a pandas DataFrame
 df = pd.read_csv('dataset_new.csv')
@@ -27,9 +28,12 @@ print("Mean Squared Error:", mse)
 
 # Use the trained model to predict the due date for a new sample
 new_sample = pd.DataFrame({
-    'Difficulty': [2],
-    'Workload': [1],
-    'Assigned date': [2]
+    'Difficulty': [1],
+    'Workload': [4],
+    'Assigned date': [4]
 })
 new_prediction = model.predict(new_sample)
 print("Predicted due date:", new_prediction)
+
+pickle.dump(model,open('pklmod.pkl', 'wb'))
+pklmod=pickle.load(open('pklmod.pkl', 'rb'))
