@@ -18,7 +18,7 @@ st.sidebar.success("Select a page below.")
 
 # Set up the sidebar
 st.sidebar.title("Navigation 🧭")
-nav = st.sidebar.radio("Go to", ("Due Date Prediction 🧠", "View Calendar 📆"))
+nav = st.sidebar.radio("Go to", ("Teacher's Dashboard 👩‍🏫", "Student's Dashboard 🧑‍🎓", "Due Date Prediction 🧠", "View Calendar 📆"))
 
 
 
