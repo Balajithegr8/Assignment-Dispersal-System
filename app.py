@@ -1,48 +1,60 @@
-import numpy as np
-from flask import Flask, request, jsonify, render_template
+import streamlit as st
+import pandas as pd
+import datetime as dt
 import pickle
-import re
+from google.oauth2 import service_account
+from googleapiclient.errors import HttpError
+from googleapiclient.discovery import build
+from googleapiclient.errors import Error
 
-app = Flask(__name__)
-model = pickle.load(open('model.pkl','rb'))
+# Load the trained model
+with open('model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# Set up the streamlit app
+st.set_page_config(page_title="Assignment Dumps", page_icon=":books:")
+st.title("Assignment Dumps 📚")
+st.sidebar.success("Select a page below.")
 
-@app.route('/save_the_kids',methods=['POST'])
-def predict():
-    '''
-    For rendering results on HTML GUI
-    '''
-    int_features = [float(x) for x in request.form.values()]
+# Set up the sidebar
+st.sidebar.title("Navigation 🧭")
+nav = st.sidebar.radio("Go to", ("Due Date Prediction 🧠", "View Calendar 📆"))
 
-    if(int_features[0]<1 or int_features[0]>3):
-        return render_template('index.html', prediction_text='Please enter a valid difficulty between 1 and 3')
 
-    if(int_features[1]<0 or int_features[1]>7):
-        return render_template('index.html', prediction_text='Please enter a valid workload between 0 and 7')
 
-    if(int_features[2]<1 or int_features[2]>31):
-        return render_template('index.html', prediction_text='Please enter a valid date between 1 and 31')    
+if nav == "Due Date Prediction 🧠":
+    difficulty = st.slider("Select the difficulty of the assignment (1 = easy, 5 = difficult)", 1, 5)
+    workload = st.slider("Select the workload of the student (number of assignments left)", 1, 10)
+    assign_date = st.date_input("Select the assignment start date")
 
-    final_features = [np.array(int_features[0:2:1])]
-    prediction = model.predict(final_features)
-    date=int_features[2]
-    output = round(prediction[0], 0)+date
+    # Calculate the due date using the trained model
+    if assign_date and difficulty and workload:
+        days_to_complete = model.predict([[difficulty, workload]])[0]
+        due_date = assign_date + dt.timedelta(days=int(days_to_complete))
 
-    return render_template('index.html', prediction_text='The due date should be  {}'.format(output))
+        # Format the due date as a string
+        due_date_str = f"{due_date.month}/{due_date.day}/{due_date.year}"
 
-@app.route('/Assignments_bruh',methods=['POST'])
-def predict_api():
-    '''
-    For direct API calls trought request
-    '''
-    data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
+        # Display the due date and allow the user to accept or reject it
+        accepted = st.button("Accept")
+        rejected = st.button("Reject")
+        if accepted:
+            # If the user accepts the due date, add it to the calendar
+            # Here you would add the code to add the task to your calendar API
+            st.write(f"The due date for the task is {due_date_str}")
+            st.write("Task added to calendar")
+            
+        elif rejected:
+            # If the user rejects the due date, allow them to manually enter a due date
+            manual_date = st.date_input("Enter a due date")
+            submitted = st.button("Submit")
+            if submitted and manual_date:
+                # Here you would add the code to add the task to your calendar API using the manually entered date
+                st.write("Task added to calendar")
+                st.write(f"The due date for the task is {manual_date.month}/{manual_date.day}/{manual_date.year}")
+    else:
+        st.write("Please input all the required fields to get the due date")
 
-    output = prediction[0]
-    return jsonify(output)
-
-if __name__ == "__main__":
-    app.run(debug=True)
+elif nav == "View Calendar 📆":
+    # Here you would add the code to retrieve tasks from your calendar API and display them
+    st.write("Calendar view not implemented yet")
