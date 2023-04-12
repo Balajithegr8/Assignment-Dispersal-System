@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- change the "Forgot the password link colour to white" 
+     change(reduce) the distance between "login" and "to access your account"    -->
+<html>
+  <head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+      </style>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Set the container to use flexbox */
+      .container {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+      }
+      
+      /* Set the styles for the left column */
+      .left-column {
+        flex: 0 0 65%;
+        height: 100%;
+        background-color: #262730;
+      }
+      
+      /* Set the styles for the right column */
+      .right-column {
+        flex: 0 0 35%;
+        height: 100%;
+        background-color: #262730;
+      }
+      a:link {
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    text-decoration: none;
+
+  }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <div class="left-panel">
+            <img src="image.png" alt="Image">
+          </div>
+      </div>
+      <div class="right-column">
+        <div class="options">
+            <div class="option active"><button type="submit1"><U>Teacher</U></button></div>
+            <div class="option1"><button type="submit1">Student</button></div>
+          </div>
+
+
+        <div class="login">
+            <div class="letme">
+                <h1 >Log in</h1>
+                <p class="two">To access your account</p>
+            </div>
+            <form>
+                <div class="num">
+                    <div class="six">
+                        <label class="three" for="email">Email Address</label>
+                    </div>
+                        
+                    <input class="four" type="email" id="email"  style="width: 600px; height: 50px; " name="email" required>
+                    <br>
+                    <div class ="five">
+                        <label for="password">Password</label>
+                    </div>
+                    
+                    <input type="password" id="password" style="width: 600px; height: 50px; " name="password" required>
+                </div>
+                <div class="forgot-password">
+
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="color:#ffffff;"><U>Forgot password</U></a>
+
+                </div >
+                <div class="seven">
+                  <button class="my-button" id="login-btn" onclick="checkLogin()">Log in</button>
+                </div>
+                
+            </form>
+        </div>
+
+      </div>
+    </div>
+  </body>
+  <script src="login.js"></script>
+</html>
