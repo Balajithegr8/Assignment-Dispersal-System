@@ -1,37 +1,96 @@
 <!DOCTYPE html>
-<html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
-<head>
-  <meta charset="UTF-8">
-  <title>ML API</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  
-</head>
+<!-- change(reduce) the distance between "login" and "to access your account"   http://localhost:8080   http://10.3.26.141:8080-->
+<html>
+  <head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+      </style>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Set the container to use flexbox */
+      .container {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+      }
+      
+      /* Set the styles for the left column */
+      .left-column {
+        flex: 0 0 65%;
+        height: 100%;
+        background-color: #262730;
+      }
+      
+      /* Set the styles for the right column */
+      .right-column {
+        flex: 0 0 35%;
+        height: 100%;
+        background-color: #262730;
+      }
+      a:link {
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    text-decoration: none;
 
-<body>
- <div class="login">
-	<h1>::Assignment Dumps:: </h1>
+  }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <div class="left-panel">
+            <img src="/static/image.png" alt="Image">
+          </div>
+      </div>
+      <div class="right-column">
+        <div class="options">
+            <div class="option active"><button type="submit1"><U>Teacher</U></button></div>
+            <div class="option1"><button type="submit1">Student</button></div>
+          </div>
 
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
-    	<input type="text" name="Difficulty" placeholder="Difficulty of the Assignment" required="required" />
-      <input type="text" name="Workload" placeholder="Workload on the student" required="required" />
-      <input type="text" name="Date" placeholder="Assigned Date" required="required" />
-		  
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-    </form>
 
-   <br>
-   <br>
-    <div class="output"></div>
-        {{ prediction_text }}
+        <div class="login">
+            <div class="letme">
+                <h1 >Log in</h1>
+                <p class="two">To access your account</p>
+            </div>
+            <form>
+                <div class="num">
+                    <div class="six">
+                        <label class="three" for="email">Email Address</label>
+                    </div>
+                        
+                    <input class="four" type="email" id="email"  style="width: 600px; height: 50px; " name="email" required>
+                    <br>
+                    <div class ="five">
+                        <label for="password">Password</label>
+                    </div>
+                    
+                    <input type="password" id="password" style="width: 600px; height: 50px; " name="password" required>
+                </div>
+                <div class="forgot-password">
+
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="color:#ffffff;"><U>Forgot password</U></a>
+
+                </div >
+                <div class="seven">
+
+        
+                  <button class="my-button" id="login-btn" onclick="checkLogin()" >Log in</button>
+                </div>
+                
+            </form>
+            <button class="infinty" style="display:none" id="streamlit-btn" onclick="location.href='/run_script'">Run Streamlit App</button>
+        </div>
+
+      </div>
     </div>
- </div>
-
-
-</body>
+  </body>
+  <script src="/static/login.js"></script>
 </html>
