@@ -139,6 +139,7 @@ def main():
                         "Select the difficulty of the assignment (1 = easy, 5 = difficult)", 1, 5)
                     workload = st.slider(
                         "Select the workload of the student (number of assignments left)", 1, 10)
+                    Topic = st.text_input("Enter Assignment Topic")
                     assign_date = st.date_input("Select the assignment start date")
                     kai = f"{assign_date.month}/{assign_date.day}/{assign_date.year}"
                     # Calculate the due date using the trained model
@@ -161,7 +162,7 @@ def main():
                             
                             st.write("Task added to calendar")
                             query = "INSERT INTO assignments(due_date, workload, topic,start_date,difficulty,username) VALUES (%s, %s,%s, %s,%s,%s)"
-                            values = (kaioken, workload,None, kai,difficulty,username)
+                            values = (kaioken, workload,Topic, kai,difficulty,username)
                             cursor.execute(query, values)
                             connection.commit()
                             cursor.close()
@@ -178,8 +179,8 @@ def main():
                                 st.write("Task added to calendar")
                                 st.write(
                                     f"The due date for the task is {manual_date.month}/{manual_date.day}/{manual_date.year}")
-                            query = "INSERT INTO assignments(due_date, workload, topic,start_date,difficulty) VALUES (%s, %s,%s, %s,%s)"
-                            values = (kaioken, workload,None, kai,difficulty,username)
+                            query = "INSERT INTO assignments(due_date, workload, topic,start_date,difficulty,username) VALUES (%s, %s,%s, %s,%s,%s)"
+                            values = (kaioken, workload,Topic, kai,difficulty,username)
                             cursor.execute(query, values)
                             connection.commit()
                             cursor.close()
@@ -205,14 +206,24 @@ def main():
                     cursor.execute("USE asgn;")
                     cursor.execute("SELECT * from assignments LIMIT 2;")
                     records=cursor.fetchall()
-                    captain1=records[0][5]
-                    captain2=records[1][5]
-                    topic1=records[0][2]
-                    topic2=records[1][2]
-                    asn_date1=records[0][3]
-                    asn_date2=records[1][3]
-                    d_date1=records[0][0]
-                    d_date2=records[1][0]
+                    if(records==[]):
+                        captain1=None
+                        captain2=None
+                        topic1=None
+                        topic2=None
+                        asn_date1=None
+                        asn_date2=None
+                        d_date1=None
+                        d_date2=None
+                    else:
+                        captain1=records[0][5]
+                        captain2=records[1][5]
+                        topic1=records[0][2]
+                        topic2=records[1][2]
+                        asn_date1=records[0][3]
+                        asn_date2=records[1][3]
+                        d_date1=records[0][0]
+                        d_date2=records[1][0]
 
                     assignment_div = '''
                         <style>
@@ -261,14 +272,24 @@ def main():
                     cursor.execute("USE asgn;")
                     cursor.execute("SELECT * from assignments LIMIT 2;")
                     records=cursor.fetchall()
-                    captain1=records[0][5]
-                    captain2=records[1][5]
-                    topic1=records[0][2]
-                    topic2=records[1][2]
-                    asn_date1=records[0][3]
-                    asn_date2=records[1][3]
-                    d_date1=records[0][0]
-                    d_date2=records[1][0]
+                    if(records==[]):
+                        captain1=None
+                        captain2=None
+                        topic1=None
+                        topic2=None
+                        asn_date1=None
+                        asn_date2=None
+                        d_date1=None
+                        d_date2=None
+                    else:
+                        captain1=records[0][5]
+                        captain2=records[1][5]
+                        topic1=records[0][2]
+                        topic2=records[1][2]
+                        asn_date1=records[0][3]
+                        asn_date2=records[1][3]
+                        d_date1=records[0][0]
+                        d_date2=records[1][0]
                     assignment_div = '''
                         <style>
                             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
