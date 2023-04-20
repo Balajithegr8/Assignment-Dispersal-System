@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>Fullcalendar</title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+    body {
+      background-color: #0e1117;
+      color: white;
+      
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 14px;
+    }
+
+    .fc-header-toolbar {
+      background-color: #0e1117;
+      
+      border-color: #0e1117;
+    }
+
+    .fc-header-toolbar button {
+      color: #262730;
+    }
+
+    .fc-event {
+      background-color: #6D9EEB;
+      border-color: #6D9EEB;
+    }
+
+    .fc-event:hover {
+      background-color: #3B87B3;
+      border-color: #3B87B3;
+    }
+
+    .fc-day-header {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .fc-toolbar {
+      margin-bottom: 15px;
+    }
+
+    .fc-title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    /* Customize the current day */
+    .fc-today {
+      background-color: #18191e !important;
+      color: white !important;
+    }
+    .fc-day-number {
+      font-size: 20px !important;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+   <div id="calendar"></div>
+  </div>
+  <br>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
+<script>
+  $(document).ready(function() {
+    fetch("ak47.csv")
+      .then(response => response.text())
+      .then(data => {
+        // Split the data into lines
+        var lines = data.split("\n");
+
+        // Loop through each line
+        for (var i = 0; i < lines.length; i++) {
+          
+          // Split the line into columns
+          var cols = lines[i].split(",");
+
+          // Extract the start and end dates from the CSV columns (assuming they are in the 1st and 2nd columns respectively)
+          var start_date = moment(cols[3]);
+          var due_date = moment(cols[0]);
+          var asgn_name = moment(cols[2]);
+          // Create a FullCalendar event object using the start and end dates
+          var event = {
+            title: "Assignment",
+            start: start_date,
+            end: due_date
+        };
+
+        // Add the event to the calendar
+        $('#calendar').fullCalendar('renderEvent', event, true);
+      
+      }
+    });
+    $('#calendar').fullCalendar({
+      themeSystem: 'bootstrap3',
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+    });
+  });
+</script>
+</html>

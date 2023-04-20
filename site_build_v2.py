@@ -74,7 +74,7 @@ def main():
     connection = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='balaji'
+    password='yash'
     )
     # st.title("Simple Login App")
     cursor = connection.cursor()
@@ -215,14 +215,14 @@ def main():
 
                 elif nav == "View Calendar 📆":
                     # Here you would add the code to retrieve tasks from your calendar API and display them
-                    st.write("Calendar view not implemented yet dattebayo")
+                    st.components.v1.html(open('calendar_ui.html', 'r').read(), height=800)
 
                 elif nav == "Student's Dashboard 🧑‍🎓":
                     # Generate the HTML div containing the assignment details
                     connection = mysql.connector.connect(
                                 host='localhost',
                                 user='root',
-                                password='balaji'
+                                password='yash'
                                 )
                     cursor = connection.cursor()
                     cursor.execute("USE asgn;")
@@ -288,7 +288,7 @@ def main():
                     connection = mysql.connector.connect(
                                 host='localhost',
                                 user='root',
-                                password='balaji'
+                                password='yash'
                                 )
                     cursor = connection.cursor()
                     cursor.execute("USE asgn;")
