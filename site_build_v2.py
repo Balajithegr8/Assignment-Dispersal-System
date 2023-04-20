@@ -11,6 +11,8 @@ from googleapiclient.errors import Error
 import streamlit_authenticator as stauth
 import warnings
 warnings.filterwarnings("ignore")
+import csv
+import os
 
 with open('model.pkl', 'rb') as file:
     model = pickle.load(file)
@@ -101,6 +103,17 @@ def main():
 
 
 
+    filename = "ak47.csv"
+
+    if not os.path.isfile(filename):
+        with open(filename, "w", newline="") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["due_date", "workload", "topic","start_date","difficulty","username"]) # Write headers if needed
+            # Add data to the file if needed
+        
+    
+        
+
 
     menu = ["Home", "Login", "SignUp"]
     choice = st.sidebar.selectbox("Menu", menu)
@@ -167,7 +180,12 @@ def main():
                             connection.commit()
                             cursor.close()
                             connection.close()
-
+                            with open(filename, "a", newline="") as csvfile:
+                                writer = csv.writer(csvfile)
+                                # Write some data to the file
+                                writer.writerow([kaioken, workload, Topic,kai,difficulty,username])
+                                
+                                
 
                         elif rejected:
                             # If the user rejects the due date, allow them to manually enter a due date
@@ -185,6 +203,10 @@ def main():
                             connection.commit()
                             cursor.close()
                             connection.close()
+                            with open(filename, "a", newline="") as csvfile:
+                                writer = csv.writer(csvfile)
+                                # Write some data to the file
+                                writer.writerow([kaioken, workload, Topic,kai,difficulty,username])
 
                     else:
                         st.write("Please input all the required fields to get the due date")
