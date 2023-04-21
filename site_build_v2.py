@@ -74,7 +74,7 @@ def main():
     connection = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='yash'
+    password='balaji'
     )
     # st.title("Simple Login App")
     cursor = connection.cursor()
@@ -126,6 +126,7 @@ def main():
 
         username = st.sidebar.text_input("User Name")
         password = st.sidebar.text_input("Password", type='password')
+        st.sidebar.text("")
         if st.sidebar.checkbox("Login"):
             # if password == '12345':
             create_usertable()
@@ -222,7 +223,7 @@ def main():
                     connection = mysql.connector.connect(
                                 host='localhost',
                                 user='root',
-                                password='yash'
+                                password='balaji'
                                 )
                     cursor = connection.cursor()
                     cursor.execute("USE asgn;")
@@ -236,6 +237,15 @@ def main():
                         asn_date1=None
                         asn_date2=None
                         d_date1=None
+                        d_date2=None
+                    elif(len(records)==1):
+                        captain1=records[0][5]
+                        captain2=None
+                        topic1=records[0][2]
+                        topic2=None
+                        asn_date1=records[0][3]
+                        asn_date2=None
+                        d_date1=records[0][0]
                         d_date2=None
                     else:
                         captain1=records[0][5]
@@ -288,7 +298,7 @@ def main():
                     connection = mysql.connector.connect(
                                 host='localhost',
                                 user='root',
-                                password='yash'
+                                password='balaji'
                                 )
                     cursor = connection.cursor()
                     cursor.execute("USE asgn;")
@@ -302,6 +312,15 @@ def main():
                         asn_date1=None
                         asn_date2=None
                         d_date1=None
+                        d_date2=None
+                    elif(len(records)==1):
+                        captain1=records[0][5]
+                        captain2=None
+                        topic1=records[0][2]
+                        topic2=None
+                        asn_date1=records[0][3]
+                        asn_date2=None
+                        d_date1=records[0][0]
                         d_date2=None
                     else:
                         captain1=records[0][5]
